@@ -1,6 +1,8 @@
-﻿namespace AppIntegrationTest.Domain.Models
+﻿using AppIntegrationTest.Domain.Repositories;
+
+namespace AppIntegrationTest.Domain.Models
 {
-    public class Evaluation
+    public class Evaluation : IEntity
     {
 
         public int Id { get; set; }
