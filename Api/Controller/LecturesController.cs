@@ -1,4 +1,6 @@
-﻿using AppIntegrationTest.Domain.Models;
+﻿using System.Threading.Tasks;
+using AppIntegrationTest.Domain.Models;
+using AppIntegrationTest.Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +10,20 @@ namespace AppIntegrationTest.Api.Controller;
 [Route("api/lectures")]
 public class LecturesController : ControllerBase
 {
-    [HttpGet]
-    public ActionResult<IEnumerable<Lecture>> GetAll()
-    {        
 
-        return Ok(new Lecture[] { });
+    private readonly ILectureRepository _repository;
+
+    public LecturesController(ILectureRepository repository)
+    {
+        _repository = repository;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Lecture>>> GetAll()
+    {
+        var lectures = await _repository.FindAllAsync();
+
+        return Ok(lectures);
     }
 
 
